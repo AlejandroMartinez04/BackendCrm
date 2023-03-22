@@ -3,20 +3,25 @@ const morgan = require('morgan');
 const path = require('path');
 const app = express ();
 const { mongoose } = require('./database');
-const userRoutes = require("./routes/user")
+const userRoutes = require("./routes/user");
+const casesRoutes = require("./routes/cases");
 
 
 //Settings
 app.set('port', process.env.PORT || 3000);
 
+
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api', userRoutes);
+app.use('/api', casesRoutes);
 
 
 //Routes
 app.use('/tasks',require('./routes/user'));
+app.use('/tasks',require('./routes/cases'));
+
 
 app.get("/", (req,res) => {
     res.send("Welcome to sadimi");
