@@ -48,3 +48,6 @@ Content-Type: application/json
   "email": "santiagomojica@gmail.com",
   "date": "22-03-2023"
 }
+
+### para buscar los casos
+ GET http://localhost:3000/api/cases HTTP/1.1
