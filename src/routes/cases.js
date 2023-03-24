@@ -21,4 +21,13 @@ router.get('/cases', (req, res) => {
 });
 
 
+// get a case
+router.get('/cases/:id', (req, res) => {
+    const { id } = req.params;
+    casesSchema
+        .findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({message: error}));
+});
+
 module.exports = router;
