@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const express = require ('express');
 
 const casesSchema = mongoose.Schema({
     document: {
@@ -8,7 +7,7 @@ const casesSchema = mongoose.Schema({
        unique: true
     },
     description: {
-     type: Number,
+     type: String,
      required: true
    },
     services: {

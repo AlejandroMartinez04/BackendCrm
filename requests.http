@@ -42,7 +42,7 @@ POST http://localhost:3000/api/cases HTTP/1.1
 Content-Type: application/json
 
 {
-  "document": "1020658458",
+  "document": "1037651321",
   "description": "this is services to fix a xbox one s, becase doesn't work",
   "services": "Xbox One S",
   "email": "santiagomojica@gmail.com",

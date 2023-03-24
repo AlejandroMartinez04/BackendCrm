@@ -1,4 +1,4 @@
-const express = require ('express');
+const express = require('express');
 const router = express.Router();
 const casesSchema = require("../models/cases");
 
@@ -10,3 +10,15 @@ router.post('/cases', (req, res) => {
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}));
 });
+
+
+// get all cases
+router.get('/cases', (req, res) => {
+    casesSchema
+        .find()
+        .then((data) => res.json(data))
+        .catch((error) => res.json({message: error}));
+});
+
+
+module.exports = router;
