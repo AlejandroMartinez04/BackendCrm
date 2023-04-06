@@ -1,11 +1,13 @@
 const express = require ('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const path = require('path');
 const app = express ();
 const { mongoose } = require('./database');
 const userRoutes = require("./routes/user");
 const casesRoutes = require("./routes/cases");
 
+app.use(cors()); // Permite todas las conexiones
 
 //Settings
 app.set('port', process.env.PORT || 3000);
