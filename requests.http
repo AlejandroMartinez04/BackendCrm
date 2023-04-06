@@ -43,11 +43,9 @@ Content-Type: application/json
 
 
 //-------------------------------------------------
-### para buscar por _id
- GET http://localhost:3000/api/users/642e227848b51d0e9562aeb0 HTTP/1.1
-
 ### para buscar por documento
- GET http://localhost:3000/api/search/12342345566 HTTP/1.1
+ GET http://localhost:3000/api/search/1037651327 HTTP/1.1
+
 
 //-------------------------------------------------
 ### para modificar con el id entregado

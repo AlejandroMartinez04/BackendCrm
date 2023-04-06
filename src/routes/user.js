@@ -27,14 +27,14 @@ router.get('/users', (req, res) => {
         .catch((error) => res.json({message: error}));
 });
 
-// get a user for _id
-router.get('/users/:id', (req, res) => {
-    const id = req.params;
-    userSchema
-        .findById(id)
-        .then((data) => res.json(data))
-        .catch((error) => res.json({message: error}));
-});
+// // get a user for _id
+// router.get('/users/:id', (req, res) => {
+//     const id = req.params;
+//     userSchema
+//         .findById(id)
+//         .then((data) => res.json(data))
+//         .catch((error) => res.json({message: error}));
+// });
 
 // get a user by document
 router.get('/search/:document', async (req, res) => {
