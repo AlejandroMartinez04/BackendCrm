@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const casesSchema = require("../models/cases");
+const cases = require('../models/cases');
 
 // create cases
 router.post('/cases', (req, res) => {
@@ -29,5 +30,16 @@ router.get('/cases/:id', (req, res) => {
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}));
 });
+
+// get a case by document
+router.get('/case/:document', async (req, res) => {
+    try {
+      const resultado = await cases.findOne({ document: req.params.document });
+      res.json(resultado);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Error interno del servidor');
+    }
+  });
 
 module.exports = router;

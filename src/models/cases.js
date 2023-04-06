@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const casesSchema = mongoose.Schema({
     document: {
        type: String, 
-       required: true,
-       unique: true
+       required: true
     },
     description: {
      type: String,

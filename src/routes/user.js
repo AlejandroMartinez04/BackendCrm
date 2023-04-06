@@ -37,7 +37,7 @@ router.get('/users', (req, res) => {
 // });
 
 // get a user by document
-router.get('/search/:document', async (req, res) => {
+router.get('/user/:document', async (req, res) => {
     try {
       const resultado = await user.findOne({ document: req.params.document });
       res.json(resultado);
