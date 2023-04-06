@@ -1,12 +1,3 @@
 [build]
-  functions = "functions"
     command = "npm run dev"
 
-[[redirects]]
-  from = "/api/user"
-  to = "/.netlify/functions/users"
-  status = 200
-
-  from = "/api/cases"
-  to = "/.netlify/functions/cases"
-  status = 200
