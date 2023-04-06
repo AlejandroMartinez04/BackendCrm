@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userSchema = require("../models/user");
+const user = require('../models/user');
+const { default: mongoose, Types } = require('mongoose');
 
  router.get('/', (req, res) => {
     res.json({
@@ -25,14 +27,26 @@ router.get('/users', (req, res) => {
         .catch((error) => res.json({message: error}));
 });
 
-// get a user
+// get a user for _id
 router.get('/users/:id', (req, res) => {
-    const { id } = req.params;
+    const id = req.params;
     userSchema
         .findById(id)
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}));
 });
+
+// get a user by document
+router.get('/search/:document', async (req, res) => {
+    try {
+      const resultado = await user.findOne({ document: req.params.document });
+      res.json(resultado);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Error interno del servidor');
+    }
+  });
+
 
 // update a user
 router.put('/users/:id', (req, res) => {
