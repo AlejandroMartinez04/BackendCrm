@@ -39,7 +39,7 @@ Content-Type: application/json
 
 //-------------------------------------------------
 ### para buscar todos las personas
- GET http://localhost:3000/api/user/ HTTP/1.1
+ GET http://localhost:3000/api/users HTTP/1.1
 
 
 //-------------------------------------------------
