@@ -7,11 +7,19 @@ const employeeSchema = mongoose.Schema({
        unique: true
     },
     password: {
-     type: String,
-     required: true
-   }
-  },{
-    versionKey: false
+       type: String,
+       required: true
+    },
+    name: { 
+       type: String, 
+       required: true 
+    },
+    gender: { 
+       type: String, 
+       required: true 
+    }
+    },{
+      versionKey: false
   }
 );
    

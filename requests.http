@@ -123,5 +123,5 @@ GET http://localhost:3000/api/cases/5542985449 HTTP/1.1
 ### para buscar todos las empleados
  GET http://localhost:3000/api/employee HTTP/1.1
 
-### para buscar por cedula
+### para buscar por username
  GET http://localhost:3000/api/employee/santiago
