@@ -6,6 +6,8 @@ const app = express ();
 const { mongoose } = require('./database');
 const userRoutes = require("./routes/user");
 const casesRoutes = require("./routes/cases");
+const personRoutes = require("./routes/person");
+const employeeRoutes = require("./routes/employee");
 
 app.use(cors()); // Permite todas las conexiones
 
@@ -18,11 +20,15 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api', userRoutes);
 app.use('/api', casesRoutes);
+app.use('/api', personRoutes);
+app.use('/api', employeeRoutes);
 
 
 //Routes
 app.use('/tasks',require('./routes/user'));
 app.use('/tasks',require('./routes/cases'));
+app.use('/tasks',require('./routes/person'));
+app.use('/tasks',require('./routes/employee'));
 
 
 app.get("/", (req,res) => {

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const casesSchema = mongoose.Schema({
     document: {
-       type: String, 
+       type: Number, 
        required: true
     },
     description: {
@@ -16,12 +16,11 @@ const casesSchema = mongoose.Schema({
     email: {
       type: String,
       required: true
-    },
-    date: {
-        type: String,
-        required: true
     }
-
-   });
+  },{
+    timestamps: true,
+    versionKey: false
+  }
+);
    
-   module.exports = mongoose.model('cases', casesSchema);
+   module.exports = mongoose.model('Cases', casesSchema);

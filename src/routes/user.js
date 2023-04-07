@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userSchema = require("../models/user");
+const userSchema = require('../models/user');
 const user = require('../models/user');
 const { default: mongoose, Types } = require('mongoose');
 

@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const casesSchema = require("../models/cases");
+const casesSchema = require('../models/cases');
 const cases = require('../models/cases');
+const { default: mongoose, Types } = require('mongoose');
 
 // create cases
 router.post('/cases', (req, res) => {
@@ -22,17 +23,17 @@ router.get('/cases', (req, res) => {
 });
 
 
-// get a case
-router.get('/cases/:id', (req, res) => {
-    const { id } = req.params;
-    casesSchema
-        .findById(id)
-        .then((data) => res.json(data))
-        .catch((error) => res.json({message: error}));
-});
+// // get a case by _id
+// router.get('/cases/:id', (req, res) => {
+//     const { id } = req.params;
+//     casesSchema
+//         .findById(id)
+//         .then((data) => res.json(data))
+//         .catch((error) => res.json({message: error}));
+// });
 
 // get a case by document
-router.get('/case/:document', async (req, res) => {
+router.get('/cases/:document', async (req, res) => {
     try {
       const resultado = await cases.findOne({ document: req.params.document });
       res.json(resultado);
