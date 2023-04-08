@@ -17,6 +17,10 @@ const employeeSchema = mongoose.Schema({
     gender: { 
        type: String, 
        required: true 
+    },
+    document: { 
+       type: Number, 
+       required: true 
     }
     },{
       versionKey: false

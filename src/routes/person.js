@@ -33,4 +33,14 @@ router.get('/person/:document', async (req, res) => {
         .catch((error) => res.json({message: error}));
 });
 
+// update a user by document
+router.patch('/person/:document', (req, res) => {
+  const { document } = req.params;
+  const { name, email, age, gender, contact, address} = req.body;
+  personSchema
+      .updateOne({ document }, { $set: { name, email, age, gender, contact, address} })
+      .then((data) => res.json(data))
+      .catch((error) => res.json({message: error}));
+});
+
 module.exports = router;

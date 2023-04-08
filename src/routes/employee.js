@@ -25,4 +25,15 @@ router.get('/employee/:username', async (req, res) => {
     }
   });
 
+  //get a employee by document
+  router.get('/employee/:document', async (req, res) => {
+    try {
+      const resultado = await employee.findOne({ document: req.params.document });
+      res.json(resultado);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Error interno del servidor');
+    }
+  });
+
 module.exports = router;

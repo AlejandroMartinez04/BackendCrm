@@ -115,8 +115,21 @@ GET http://localhost:3000/api/cases/5542985449 HTTP/1.1
 ### para buscar todos las personas
  GET http://localhost:3000/api/person HTTP/1.1
 
-### para buscar por cedula
- GET http://localhost:3000/api/person/7064852615
+### para buscar por cedula 
+ GET http://localhost:3000/api/person/5542985449 HTTP/1.1
+
+### para actualizar por cedula unicamente con los datos que envia
+PATCH  http://localhost:3000/api/person/5542985449 HTTP/1.1
+Content-Type: application/json
+
+ {
+    "name": "Corbie Ofield",
+    "email": "worsting@gmail.com",
+    "age": 38,
+    "gender": "male",
+    "contact": "3005106167",
+    "address": "52 Grim Drive"
+  }
 
 //--------------------------------------EMPLOYEE----------------------------------------
 

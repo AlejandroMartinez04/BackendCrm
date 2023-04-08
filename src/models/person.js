@@ -22,7 +22,7 @@ const personSchema = mongoose.Schema({
     type: String, 
     required: true 
   },
-  cellphone: { 
+  contact: { 
     type: Number, 
     required: true 
   },
