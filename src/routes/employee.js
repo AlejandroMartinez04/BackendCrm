@@ -6,16 +6,16 @@ const { default: mongoose, Types } = require('mongoose');
 
 
 // get all employee
-router.get('/employee', (req, res) => {
-    employeeSchema
-        .find()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({message: error}));
-});
+  router.get('/employee', (req, res) => {
+      employeeSchema
+          .find()
+          .then((data) => res.json(data))
+          .catch((error) => res.json({message: error}));
+  });
 
 
 //get a employee by username
-router.get('/employee/:username', async (req, res) => {
+  router.get('/employee/:username', async (req, res) => {
     try {
       const resultado = await employee.findOne({ username: req.params.username });
       res.json(resultado);
@@ -35,5 +35,16 @@ router.get('/employee/:username', async (req, res) => {
       res.status(500).send('Error interno del servidor');
     }
   });
+
+
+  // update a employee by username
+  router.patch('/employee/:username', (req, res) => {
+    const { username } = req.params;
+    const { password } = req.body;
+    employeeSchema
+        .updateOne({ username }, { $set: { password } })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({message: error}));
+});
 
 module.exports = router;
