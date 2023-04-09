@@ -36,10 +36,10 @@ router.get('/person', (req, res) => {
 
 
 // get a person with user by document
-router.get('/person/:document', async (req, res) => {
+router.get('/person/:documents', async (req, res) => {
   try {
-     const people = await person.findOne({ document: req.params.document })
-      .populate({path:'userId', select: '-_id country services'})
+     const people = await person.findOne({ document: req.params.documents })
+      .populate({path:'userId', select: '-_id -document'})
       .exec();
        res.json(people);
   } catch (error) {
