@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const personSchema = mongoose.Schema({
+const personSchema = new mongoose.Schema({
   document: { 
     type: Number, 
     required: true , 
@@ -29,6 +29,10 @@ const personSchema = mongoose.Schema({
   address: { 
     type: String, 
     required: true 
+  },
+  userId: { //nueva linea para relacionar
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'User'
   }
 },{
   versionKey: false

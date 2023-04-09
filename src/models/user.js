@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
-  document: {
-    type: Number, 
-    required: true
-  },
+const userSchema = new mongoose.Schema({
+  // document: {
+  //   type: Number, 
+  //   required: true
+  // },
   country: {
-    type: String,
-    required: true
+    type: String
   },
-   services: {
-    type: String,
-    required: true
+  service: {
+    type: String
+  },
+  document: {
+    type: Number
   }
 },{
   versionKey: false

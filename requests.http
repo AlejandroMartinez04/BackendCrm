@@ -1,54 +1,26 @@
-### create users
+### create user
 POST http://localhost:3000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-  "document":"1037651327",
-  "name": "Santiago Soto",
-  "age": "28",
-  "country": "Colombia",
-  "services": "Xbox One X",
-  "email": "santiago@gmail.com"
-}
-
-###
-POST http://localhost:3000/api/users HTTP/1.1
-Content-Type: application/json
-
-{
-  "document": "1037651321",
-  "name": "Diego Martinez",
-  "age": "25",
-  "country": "Chile",
-  "services": "Xbox One",
-  "email": "diegomartinez@gmail.com"
-}
-
-###
-POST http://localhost:3000/api/users HTTP/1.1
-Content-Type: application/json
-
-{
-  "document": "12342345566",
-  "name": "Miguel Alvarez",
-  "age": "22",
-  "country": "Peru",
+  "country": "Mexico",
   "services": "Xbox X",
-  "email": "miguel@gmail.com"
+	"personId": "6431c63e77120a24f5c18bb5"
 }
+
 
 //-------------------------------------------------
-### para buscar todos las personas
+### para buscar todos los clientes
  GET http://localhost:3000/api/users HTTP/1.1
 
 
 //-------------------------------------------------
-### para buscar por documento
- GET http://localhost:3000/api/user/1037651327 HTTP/1.1
+### para buscar clientes por documento
+ GET http://localhost:3000/api/user/7064852615 HTTP/1.1
 
 
 //-------------------------------------------------
-### para modificar con el id entregado
+### para modificar con el id entregado NO USAR
  PUT http://localhost:3000/api/users/642e227848b51d0e9562aeb0 HTTP/1.1
 Content-Type: application/json
 
@@ -75,9 +47,8 @@ Content-Type: application/json
 
 {
   "document": "7064852615",
-  "description": "this is services to fix a xbox one, becase doesn't work hdmi port",
-  "services": "Xbox One S",
-  "email": "santiago@gmail.com"
+  "description": "i need to request a guarantee for my service",
+  "type": "PQRS"
 }
 
 ###
@@ -86,9 +57,8 @@ Content-Type: application/json
 
 {
   "document": "1930956101",
-  "description": "new case -- this is services to fix a xbox one, becase doesn't work hdmi port",
-  "services": "Xbox One XS",
-  "email": "diego@gmail.com"
+  "description": "we have sent technical to your place",
+  "type": "Support"
 }
 
 ###
@@ -96,10 +66,9 @@ POST http://localhost:3000/api/cases HTTP/1.1
 Content-Type: application/json
 
 {
-  "document": "5542985449",
-  "description": "this is services to fix a xbox one, becase doesn't work hdmi port",
-  "services": "Xbox One",
-  "email": "santiago@gmail.com"
+  "document": "5917603134",
+  "description": "i need to take off my services",
+  "type": "take off"
 }
 
 
@@ -112,23 +81,51 @@ GET http://localhost:3000/api/cases/5542985449 HTTP/1.1
 
 //--------------------------------------PERSON----------------------------------------
 
+### para crear una persona
+
+ POST  http://localhost:3000/api/person HTTP/1.1
+Content-Type: application/json
+
+{
+  "document":"4339921831",
+  "name":"Sofia Feilden",
+  "email":"previews@gmail.com",
+  "age":"68",
+  "gender":"female",
+  "contact":"3007392492",
+  "address":"25362 Linden Center"
+}
+
+### crea un usuario con el id de persona
+POST http://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "country": "Chile",
+  "services": "Computer",
+	"personId": "6431cf70276e53b3d16291c2"
+}
+
+
+
+
 ### para buscar todos las personas
  GET http://localhost:3000/api/person HTTP/1.1
 
-### para buscar por cedula 
- GET http://localhost:3000/api/person/5542985449 HTTP/1.1
+### para buscar persona por cedula 
+ GET http://localhost:3000/api/person/1037651327 HTTP/1.1
 
 ### para actualizar por cedula unicamente con los datos que envia
-PATCH  http://localhost:3000/api/person/5542985449 HTTP/1.1
+PATCH  http://localhost:3000/api/person/1037651321 HTTP/1.1
 Content-Type: application/json
 
  {
-    "name": "Corbie Ofield",
-    "email": "worsting@gmail.com",
+    "name": "Diego Martinez",
+    "email": "diiegomartinez@gmail.com",
     "age": 38,
-    "gender": "male",
-    "contact": "3005106167",
-    "address": "52 Grim Drive"
+    "gender": "no-biniary",
+    "contact": "3005106133",
+    "address": "55 Grim Drive"
   }
 
 //--------------------------------------EMPLOYEE----------------------------------------

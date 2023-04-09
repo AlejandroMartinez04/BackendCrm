@@ -9,11 +9,7 @@ const casesSchema = mongoose.Schema({
      type: String,
      required: true
    },
-    services: {
-      type: String,
-      required: true
-    },
-    email: {
+    type: {
       type: String,
       required: true
     }

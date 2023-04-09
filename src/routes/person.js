@@ -2,10 +2,20 @@ const express = require('express');
 const router = express.Router();
 const personSchema = require('../models/person');
 const person = require('../models/person');
+const user = require('../models/user');
 const { default: mongoose, Types } = require('mongoose');
 
+// create a person
+router.post('/person', (req, res) => {
+  const person = personSchema(req.body);
+  person
+      .save()
+      .then((data) => res.json(data))
+      .catch((error) => res.json({message: error}));
+});
 
-// get all people
+
+// get all person
 router.get('/person', (req, res) => {
     personSchema
         .find()
@@ -13,16 +23,32 @@ router.get('/person', (req, res) => {
         .catch((error) => res.json({message: error}));
 });
 
-// get a person by document
+// // get a person by document
+// router.get('/person/:document', async (req, res) => {
+//     try {
+//       const resultado = await person.findOne({ document: req.params.document });
+//       res.json(resultado);
+//     } catch (error) {
+//       console.log(error);
+//       res.status(500).send('Error interno del servidor');
+//     }
+//   });
+
+
+// get a person with user by document
 router.get('/person/:document', async (req, res) => {
-    try {
-      const resultado = await person.findOne({ document: req.params.document });
-      res.json(resultado);
-    } catch (error) {
+  try {
+     const people = await person.findOne({ document: req.params.document })
+      .populate({path:'userId', select: '-_id country services'})
+      .exec();
+       res.json(people);
+  } catch (error) {
       console.log(error);
-      res.status(500).send('Error interno del servidor');
-    }
-  });
+      res.status(500).send('Error retrieving users');
+  }
+});
+
+
 
 // get a person by _id
   router.get('/person/:id', (req, res) => {

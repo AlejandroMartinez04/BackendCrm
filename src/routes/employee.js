@@ -42,6 +42,7 @@ const { default: mongoose, Types } = require('mongoose');
     const { username } = req.params;
     const { password } = req.body;
     employeeSchema
+    // aca se cifra la password
         .updateOne({ username }, { $set: { password } })
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}));
