@@ -39,7 +39,7 @@ router.get('/person', (req, res) => {
 router.get('/person/:documents', async (req, res) => {
   try {
      const people = await person.findOne({ document: req.params.documents })
-      .populate({path:'userId', select: '-_id -document'})
+      .populate({path:'userId', select: '-_id'})
       .exec();
        res.json(people);
   } catch (error) {

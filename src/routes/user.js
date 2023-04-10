@@ -11,14 +11,15 @@ const { default: mongoose, Types } = require('mongoose');
     });
  });
 
-// create user
-router.post('/users', (req, res) => {
-    const user = userSchema(req.body);
-    user
-        .save()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({message: error}));
-});
+// // create user
+// router.post('/users', (req, res) => {
+//     const user = userSchema(req.body);
+//     user
+//         .save()
+//         .then((data) => res.json(data))
+//         .catch((error) => res.json({message: error}));
+// });
+ 
 
 // get all users
 router.get('/users', (req, res) => {
