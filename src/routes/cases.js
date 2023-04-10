@@ -40,7 +40,7 @@ router.patch('/cases/:document', async (req, res) => {
     const newCase = req.body;
     cases.Array.push(newCase);
     await cases.save();
-    res.json(cases);
+    res.status(201).json('Creado con exito');
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Error en el servidor.' });

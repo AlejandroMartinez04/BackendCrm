@@ -10,7 +10,7 @@ router.post('/person', (req, res) => {
   const person = personSchema(req.body);
   person
       .save()
-      .then((data) => res.json(data))
+      .then((data) => res.json('creado con exito'))
       .catch((error) => res.json({message: error}));
 });
 
