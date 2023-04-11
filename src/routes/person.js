@@ -55,6 +55,26 @@ router.patch('/person/:document', async (req, res) => {
 });
 ///
 
+/// add new service
+router.patch('/person/:document', async (req, res) => {
+  try {
+    const people = await person.findOne({ document: req.params.document })
+      .populate({path:'userId'})
+      .exec();
+      //res.json(people);
+      //console.log(people);
+      const newService = req.body.service;
+      people.userId.services.push(newService);
+      console.log(people);
+      people.userId.save();
+      res.status(201).json('Servicio contratado con exito');
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error en el servidor.' });
+  }
+});
+///
+
 
 // get a person with user by document
 router.get('/person/:documents', async (req, res) => {
