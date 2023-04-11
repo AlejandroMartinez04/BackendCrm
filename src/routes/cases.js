@@ -82,18 +82,18 @@ router.get('/cases', (req, res) => {
 // });
 
 
-// // envia pdf por correo que se recibe en el body --- funcional descomentar
-// router.post('/cases/:document', async (req, res) => {
-//   try {
-//     //const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
-//     const destinatario = req.body.destinatario;
-//     enviarCorreo(destinatario);
-//     res.send('Archivo enviado con exito');
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Error interno del servidor');
-//   }
-// });
+// envia pdf por correo que se recibe en el body --- funcional descomentar
+router.post('/cases/:document', async (req, res) => {
+  try {
+    //const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
+    const destinatario = req.body.destinatario;
+    enviarCorreo(destinatario);
+    res.send('Archivo enviado con exito');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 // funcion que crea el pdf y es llamada dentro del endpoint
 function pdfshift(api_key, data) {
