@@ -60,7 +60,6 @@ router.get('/cases', (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
-
 // // get a case by _id
 // router.get('/cases/:id', (req, res) => {
 //     const { id } = req.params;
@@ -71,18 +70,17 @@ router.get('/cases', (req, res) => {
 // });
 
 // get a case by document funciona descomentar ---------------------------------------
-// router.get('/cases/:document', async (req, res) => {
-//   try {
-//     const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
-//     res.json(resultado);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Error interno del servidor');
-//   }
-// });
+router.get('/cases/:document', async (req, res) => {
+  try {
+    const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
+    res.json(resultado);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
-
-// envia pdf por correo que se recibe en el body --- funcional descomentar
+// envia pdf por correo que se recibe en el body --- funcional descomentar --------------------
 router.post('/cases/:document', async (req, res) => {
   try {
     //const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
@@ -94,6 +92,40 @@ router.post('/cases/:document', async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
+
+
+//Ejemplo de como funciona y crea el pdf
+
+// pdfshift('009bccf5b30840ad9444cef29b1826d3', { source: 'https://sadimi-eoya.onrender.com/api/cases' }).then(response => {
+//   fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
+// })
+
+
+// // get a case by document funciona descomentar 
+// router.get('/cases/:document', async (req, res) => {
+//   try {
+//     const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
+//     res.json(resultado);
+//     const document = resultado.document;
+//     const datos = resultado.Array;
+
+//     // const datos = resultado.Array;
+//     // for (let i = 0; i < datos.length; i++) {
+//     //   const nombre = datos[i].nombre;
+//     //   console.log(nombre); // haz algo con el valor de "nombre"
+//     // }
+
+
+//     // const description = datos[0].description;
+//     // const date = datos[2].date;
+//     // const type = datos[3].type;
+//     console.log(document,datos);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Error interno del servidor');
+//   }
+// });
+
 
 // funcion que crea el pdf y es llamada dentro del endpoint
 function pdfshift(api_key, data) {
@@ -114,15 +146,6 @@ function pdfshift(api_key, data) {
     })
   })
 }
-
-//Ejemplo de como funciona y crea el pdf
-
-// pdfshift('009bccf5b30840ad9444cef29b1826d3', { source: 'https://sadimi-eoya.onrender.com/api/cases' }).then(response => {
-//   fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
-// })
-
-
-
 
 async function enviarCorreo(destinatario) {
   // Crea el objeto transporter
