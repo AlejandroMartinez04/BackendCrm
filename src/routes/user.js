@@ -51,40 +51,6 @@ router.get('/users', (req, res) => {
 //     const users = user._id;
 //   }
 
-// ////////
-
-//   const userPerson3 = async (req, res) => {
-//     try {
-//       const users = await user.find()
-//         .populate('personId')
-//         .exec();
-//       if (res) {
-//         res.json(users);
-//       } else {
-//         console.log("res is undefined or null");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       res.status(500).send('Error retrieving users');
-//     }
-//   }
-  
-
-// router.get('/user/:document', async (req, res) => {
-//           try {
-//              const documents = req.params;
-//              const users = await user.findOne({ document: documents })
-//               .populate('personId')
-//               .exec();
-//                res.json(users);
-//                console.log('entro hasta aca')
-//           } catch (error) {
-//               console.log(error);
-//               res.status(500).send('Error retrieving users');
-//           }
-//       //userPerson3();
-//  });
-
 
 // update a user
 // router.put('/users/:id', (req, res) => {
@@ -95,6 +61,7 @@ router.get('/users', (req, res) => {
 //         .then((data) => res.json(data))
 //         .catch((error) => res.json({message: error}));
 // });
+
 
 // take off a service
 router.patch('/users/:document', (req, res) => {

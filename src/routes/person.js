@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const personSchema = require('../models/person');
 const person = require('../models/person');
-const user = require('../models/user');
+const User = require('../models/user');
 const { default: mongoose, Types } = require('mongoose');
 
 // create a person
@@ -35,6 +35,27 @@ router.get('/person', (req, res) => {
 //   });
 
 
+/// add new service
+router.patch('/person/:document', async (req, res) => {
+  try {
+    const people = await person.findOne({ document: req.params.document })
+      .populate({path:'userId'})
+      .exec();
+      //res.json(people);
+      //console.log(people);
+      const newService = req.body.service;
+      people.userId.services.push(newService);
+      console.log(people);
+      people.userId.save();
+      res.status(201).json('Servicio contratado con exito');
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error en el servidor.' });
+  }
+});
+///
+
+
 // get a person with user by document
 router.get('/person/:documents', async (req, res) => {
   try {
@@ -59,14 +80,14 @@ router.get('/person/:documents', async (req, res) => {
         .catch((error) => res.json({message: error}));
 });
 
-// update a user by document
-router.patch('/person/:document', (req, res) => {
-  const { document } = req.params;
-  const { name, email, age, gender, contact, address} = req.body;
-  personSchema
-      .updateOne({ document }, { $set: { name, email, age, gender, contact, address} })
-      .then((data) => res.json(data))
-      .catch((error) => res.json({message: error}));
-});
+// // update a user by document
+// router.patch('/person/:document', (req, res) => {
+//   const { document } = req.params;
+//   const { name, email, age, gender, contact, address} = req.body;
+//   personSchema
+//       .updateOne({ document }, { $set: { name, email, age, gender, contact, address} })
+//       .then((data) => res.json(data))
+//       .catch((error) => res.json({message: error}));
+// });
 
 module.exports = router;

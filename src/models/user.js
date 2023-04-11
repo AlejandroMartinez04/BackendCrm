@@ -4,8 +4,8 @@ const userSchema = new mongoose.Schema({
   country: {
     type: String
   },
-  service: {
-    type: String
+  services:{
+    type: [String]
   }
 },{
   versionKey: false
