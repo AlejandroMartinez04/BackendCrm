@@ -72,7 +72,7 @@ router.get('/cases', (req, res) => {
 // get a case by document funciona descomentar ---------------------------------------
 router.get('/cases/:document', async (req, res) => {
   try {
-    const resultado = await Cases.findOne({ document: req.params.document });
+    const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
     res.json(resultado);
   } catch (error) {
     console.log(error);
@@ -119,7 +119,7 @@ function pdfshift(api_key, data) {
 }
 
 //Here's a sample of what to do
-
+// 
 // pdfshift('009bccf5b30840ad9444cef29b1826d3', { source: 'https://sadimi-eoya.onrender.com/api/cases' }).then(response => {
 //   fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
 // })
