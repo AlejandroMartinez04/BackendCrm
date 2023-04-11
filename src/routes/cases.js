@@ -70,18 +70,6 @@ router.get('/cases', (req, res) => {
 // });
 
 // get a case by document funciona descomentar ---------------------------------------
-// router.get('/cases/:document', async (req, res) => {
-//   try {
-//     const resultado = await Cases.findOne({ document: req.params.document });
-//     res.json(resultado);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Error interno del servidor');
-//   }
-// });
-
-
-// get a case by document 
 router.get('/cases/:document', async (req, res) => {
   try {
     const resultado = await Cases.findOne({ document: req.params.document });
@@ -91,6 +79,23 @@ router.get('/cases/:document', async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
+
+
+// // get a case by document 
+// router.get('/cases/:document', async (req, res) => {
+//   try {
+//     const resultado = await Cases.findOne({ document: req.params.document }).lean().select('-_id');
+//     res.json(resultado);
+
+//     // pdfshift('009bccf5b30840ad9444cef29b1826d3', { source: resultado }).then(response => {
+//     //   fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
+//     // })
+
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Error interno del servidor');
+//   }
+// });
 
 // funcion que crea el pdf y es llamada dentro del endpoint
 function pdfshift(api_key, data) {
