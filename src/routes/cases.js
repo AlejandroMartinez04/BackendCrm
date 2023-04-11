@@ -5,6 +5,7 @@ const Cases = require('../models/cases');
 const { default: mongoose, Types } = require('mongoose');
 const axios = require('axios');
 const fs = require('fs');
+const nodemailer = require('nodemailer');
 
 // // create cases
 // router.post('/cases', (req, res) => {
@@ -70,27 +71,24 @@ router.get('/cases', (req, res) => {
 // });
 
 // get a case by document funciona descomentar ---------------------------------------
-router.get('/cases/:document', async (req, res) => {
-  try {
-    const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
-    res.json(resultado);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Error interno del servidor');
-  }
-});
-
-
-// // get a case by document 
 // router.get('/cases/:document', async (req, res) => {
 //   try {
-//     const resultado = await Cases.findOne({ document: req.params.document }).lean().select('-_id');
+//     const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
 //     res.json(resultado);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Error interno del servidor');
+//   }
+// });
 
-//     // pdfshift('009bccf5b30840ad9444cef29b1826d3', { source: resultado }).then(response => {
-//     //   fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
-//     // })
 
+// // envia pdf por correo que se recibe en el body --- funcional descomentar
+// router.post('/cases/:document', async (req, res) => {
+//   try {
+//     //const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
+//     const destinatario = req.body.destinatario;
+//     enviarCorreo(destinatario);
+//     res.send('Archivo enviado con exito');
 //   } catch (error) {
 //     console.log(error);
 //     res.status(500).send('Error interno del servidor');
@@ -104,7 +102,6 @@ function pdfshift(api_key, data) {
     if ('filename' in data || 'webhook' in data) {
       asJson = true
     }
-
     axios.request({
       method: 'post',
       url: 'https://api.pdfshift.io/v3/convert/pdf',
@@ -118,13 +115,46 @@ function pdfshift(api_key, data) {
   })
 }
 
-//Here's a sample of what to do
-// 
+//Ejemplo de como funciona y crea el pdf
+
 // pdfshift('009bccf5b30840ad9444cef29b1826d3', { source: 'https://sadimi-eoya.onrender.com/api/cases' }).then(response => {
 //   fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
 // })
 
 
 
+
+async function enviarCorreo(destinatario) {
+  // Crea el objeto transporter
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'sadimi.api@gmail.com',
+      pass: 'mvlkwabpqwmicign',
+    },
+  });
+
+  // Define los detalles del mensaje de correo electrónico
+  const mailOptions = {
+    from: 'sadimi.api@gmail.com',
+    to: destinatario,
+    subject: 'Casos en pdf',
+    text: 'Se adjuntan casos por documento en un pdf como se fue solicitado, Atentamente: Sadimi S.A',
+    attachments: [
+      {
+        filename: 'casosPorDocumento.com.pdf',
+        path: 'casosPorDocumento.com.pdf'
+      },
+    ],
+  };
+
+  // Envía el mensaje de correo electrónico
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Correo electrónico enviado: ' + info.response);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 module.exports = router;

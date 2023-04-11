@@ -3,11 +3,13 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const app = express ();
+const bodyParser = require('body-parser');
 const { mongoose } = require('./database');
 const userRoutes = require("./routes/user");
 const casesRoutes = require("./routes/cases");
 const personRoutes = require("./routes/person");
 const employeeRoutes = require("./routes/employee");
+
 
 app.use(cors()); // Permite todas las conexiones
 
@@ -18,6 +20,7 @@ app.set('port', process.env.PORT || 3000);
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(bodyParser.json()); 
 app.use('/api', userRoutes);
 app.use('/api', casesRoutes);
 app.use('/api', personRoutes);
