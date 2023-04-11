@@ -69,16 +69,16 @@ router.get('/cases', (req, res) => {
 //         .catch((error) => res.json({message: error}));
 // });
 
-// // get a case by document funciona descomentar ---------------------------------------
-// router.get('/cases/:document', async (req, res) => {
-//   try {
-//     const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
-//     res.json(resultado);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Error interno del servidor');
-//   }
-// });
+// get a case by document funciona descomentar ---------------------------------------
+router.get('/cases/:document', async (req, res) => {
+  try {
+    const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
+    res.json(resultado);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 // envia pdf por correo que se recibe en el body --- funcional descomentar --------------------
 router.post('/pdf/:document', async (req, res) => {
