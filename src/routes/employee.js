@@ -9,7 +9,7 @@ const { default: mongoose, Types } = require('mongoose');
   router.get('/employee', (req, res) => {
       employeeSchema
           .find()
-          .then((data) => res.json('creado con exito'))
+          .then((data) => res.json(data))
           .catch((error) => res.json({message: error}));
   });
 

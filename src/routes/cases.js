@@ -3,6 +3,8 @@ const router = express.Router();
 const casesSchema = require('../models/cases');
 const Cases = require('../models/cases');
 const { default: mongoose, Types } = require('mongoose');
+const axios = require('axios');
+const fs = require('fs');
 
 // // create cases
 // router.post('/cases', (req, res) => {
@@ -67,16 +69,57 @@ router.get('/cases', (req, res) => {
 //         .catch((error) => res.json({message: error}));
 // });
 
-// get a case by document
+// get a case by document funciona descomentar ---------------------------------------
+// router.get('/cases/:document', async (req, res) => {
+//   try {
+//     const resultado = await Cases.findOne({ document: req.params.document });
+//     res.json(resultado);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Error interno del servidor');
+//   }
+// });
+
+
+// get a case by document 
 router.get('/cases/:document', async (req, res) => {
   try {
-    const resultado = await cases.findOne({ document: req.params.document });
+    const resultado = await Cases.findOne({ document: req.params.document });
     res.json(resultado);
   } catch (error) {
     console.log(error);
     res.status(500).send('Error interno del servidor');
   }
 });
+
+// funcion que crea el pdf y es llamada dentro del endpoint
+function pdfshift(api_key, data) {
+  return new Promise((resolve, reject) => {
+    let asJson = false
+    if ('filename' in data || 'webhook' in data) {
+      asJson = true
+    }
+
+    axios.request({
+      method: 'post',
+      url: 'https://api.pdfshift.io/v3/convert/pdf',
+      responseType: (asJson ? 'json' : 'arraybuffer'),
+      data: data,
+      auth: { username: 'api', password: api_key }
+    }).then(resolve).catch(response => {
+      // Handle any error that might have occured
+      reject(response)
+    })
+  })
+}
+
+//Here's a sample of what to do
+
+// pdfshift('009bccf5b30840ad9444cef29b1826d3', { source: 'https://sadimi-eoya.onrender.com/api/cases' }).then(response => {
+//   fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
+// })
+
+
 
 
 module.exports = router;
