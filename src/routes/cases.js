@@ -69,19 +69,19 @@ router.get('/cases', (req, res) => {
 //         .catch((error) => res.json({message: error}));
 // });
 
-// get a case by document funciona descomentar ---------------------------------------
-router.get('/cases/:document', async (req, res) => {
-  try {
-    const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
-    res.json(resultado);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Error interno del servidor');
-  }
-});
+// // get a case by document funciona descomentar ---------------------------------------
+// router.get('/cases/:document', async (req, res) => {
+//   try {
+//     const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
+//     res.json(resultado);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Error interno del servidor');
+//   }
+// });
 
 // envia pdf por correo que se recibe en el body --- funcional descomentar --------------------
-router.post('/cases/:document', async (req, res) => {
+router.post('/pdf/:document', async (req, res) => {
   try {
     //const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
     const destinatario = req.body.destinatario;
@@ -101,30 +101,30 @@ router.post('/cases/:document', async (req, res) => {
 // })
 
 
-// // get a case by document funciona descomentar 
-// router.get('/cases/:document', async (req, res) => {
-//   try {
-//     const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
-//     res.json(resultado);
-//     const document = resultado.document;
-//     const datos = resultado.Array;
+// get a case by document 
+router.get('/createPdf/:document', async (req, res) => {
+  try {
+    const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
+    res.json(resultado);
+    const document = resultado.document;
+    const datos = resultado.Array;
 
-//     // const datos = resultado.Array;
-//     // for (let i = 0; i < datos.length; i++) {
-//     //   const nombre = datos[i].nombre;
-//     //   console.log(nombre); // haz algo con el valor de "nombre"
-//     // }
+    // const datos = resultado.Array;
+    // for (let i = 0; i < datos.length; i++) {
+    //   const nombre = datos[i].nombre;
+    //   console.log(nombre); // haz algo con el valor de "nombre"
+    // }
 
 
-//     // const description = datos[0].description;
-//     // const date = datos[2].date;
-//     // const type = datos[3].type;
-//     console.log(document,datos);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Error interno del servidor');
-//   }
-// });
+    // const description = datos[0].description;
+    // const date = datos[2].date;
+    // const type = datos[3].type;
+    console.log(document,datos);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 
 // funcion que crea el pdf y es llamada dentro del endpoint
