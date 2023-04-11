@@ -8,7 +8,7 @@ const casesSchema = mongoose.Schema({
     description: {
       type: String
     },
-    types: {
+    type: {
       type: String
     },
     date: {
