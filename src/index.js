@@ -24,17 +24,12 @@ app.set('port', process.env.PORT || 3000);
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParser.json()); 
+
+//Routes
 app.use('/api', userRoutes);
 app.use('/api', casesRoutes);
 app.use('/api', personRoutes);
 app.use('/api', employeeRoutes);
-
-
-//Routes
-app.use('/tasks',require('./routes/user'));
-app.use('/tasks',require('./routes/cases'));
-app.use('/tasks',require('./routes/person'));
-app.use('/tasks',require('./routes/employee'));
 
 
 app.get("/", (req,res) => {
