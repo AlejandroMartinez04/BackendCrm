@@ -10,12 +10,11 @@ const casesRoutes = require("./routes/cases");
 const personRoutes = require("./routes/person");
 const employeeRoutes = require("./routes/employee");
 
+const corsOptions = {
+    origin: 'https://sadimi-suj6.onrender.com/'
+};
 
-app.use(cors(
-    {
-        origin: 'https://sadimi-suj6.onrender.com'    
-    }
-)); // Permite todas las conexiones
+//app.use(cors()); // Permite todas las conexiones
 
 //Settings
 app.set('port', process.env.PORT || 3000);
@@ -24,6 +23,7 @@ app.set('port', process.env.PORT || 3000);
 //Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors(corsOptions));
 app.use(bodyParser.json()); 
 app.use('/api', userRoutes);
 app.use('/api', casesRoutes);
