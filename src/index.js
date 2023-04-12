@@ -45,6 +45,6 @@ app.get("/", cors(corsOptions), function (req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')))
 
 //Starting server
-app.listen(80, function () {
+app.listen(10000, function () {
     console.log(`Server on port ${app.get('port')}`);
 });
