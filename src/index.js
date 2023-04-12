@@ -10,11 +10,14 @@ const casesRoutes = require("./routes/cases");
 const personRoutes = require("./routes/person");
 const employeeRoutes = require("./routes/employee");
 
-const whiteList = ['https://sadimi-suj6.onrender.com'];
+const whiteList = ['https://sadimi-suj6.onrender.com','http://localhost:3000'];
 
-app.use(cors({origin: whiteList }));
+// app.use(cors({origin: whiteList }));
 
-//app.use(cors()); // Permite todas las conexiones
+var corsOptions = {
+    origin: 'https://sadimi-suj6.onrender.com',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
 
 //Settings
 app.set('port', process.env.PORT || 3000);
@@ -32,7 +35,7 @@ app.use('/api', personRoutes);
 app.use('/api', employeeRoutes);
 
 
-app.get("/", (req,res) => {
+app.get("/", cors(corsOptions), function (req, res, next) {
     res.send("Welcome to sadimi");
 });
 
@@ -42,6 +45,6 @@ app.get("/", (req,res) => {
 app.use(express.static(path.join(__dirname, 'public')))
 
 //Starting server
-app.listen(app.get('port'), () => {
+app.listen(80, function () {
     console.log(`Server on port ${app.get('port')}`);
 });

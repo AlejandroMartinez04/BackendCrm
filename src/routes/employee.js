@@ -42,10 +42,19 @@ const { default: mongoose, Types } = require('mongoose');
     const { username } = req.params;
     const { password } = req.body;
     employeeSchema
-    // aca se cifra la password
+    // aca se cifraria la password //
         .updateOne({ username }, { $set: { password } })
         .then((data) => res.json(data))
         .catch((error) => res.json({message: error}));
 });
+
+// const bcrypt = require('bcrypt');
+
+// async function cifrarContrasena(password,saltRounds) {
+//   bcrypt.hash(password, saltRounds, (err, hash) => {
+//   if (err) {
+//     return res.json({ message: 'Error al cifrar la contraseña' })
+//   }})
+// }
 
 module.exports = router;
