@@ -14,7 +14,6 @@ router.post('/person', (req, res) => {
       .catch((error) => res.json({message: error}));
 });
 
-
 // get all person
 router.get('/person', (req, res) => {
     personSchema
@@ -23,18 +22,6 @@ router.get('/person', (req, res) => {
         .catch((error) => res.json({message: error}));
 });
 
-// // get a person by document
-// router.get('/person/:document', async (req, res) => {
-//     try {
-//       const resultado = await person.findOne({ document: req.params.document });
-//       res.json(resultado);
-//     } catch (error) {
-//       console.log(error);
-//       res.status(500).send('Error interno del servidor');
-//     }
-//   });
-
-
 /// add new service
 router.patch('/person/:document', async (req, res) => {
   try {
@@ -54,27 +41,6 @@ router.patch('/person/:document', async (req, res) => {
   }
 });
 ///
-
-/// add new service
-router.patch('/person/:document', async (req, res) => {
-  try {
-    const people = await person.findOne({ document: req.params.document })
-      .populate({path:'userId'})
-      .exec();
-      //res.json(people);
-      //console.log(people);
-      const newService = req.body.service;
-      people.userId.services.push(newService);
-      console.log(people);
-      people.userId.save();
-      res.status(201).json('Servicio contratado con exito');
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Error en el servidor.' });
-  }
-});
-///
-
 
 // get a person with user by document
 router.get('/person/:documents', async (req, res) => {
@@ -88,7 +54,6 @@ router.get('/person/:documents', async (req, res) => {
       res.status(500).send('Error retrieving users');
   }
 });
-
 
 
 // get a person by _id

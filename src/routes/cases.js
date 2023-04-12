@@ -60,14 +60,6 @@ router.get('/cases', (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
-// // get a case by _id
-// router.get('/cases/:id', (req, res) => {
-//     const { id } = req.params;
-//     casesSchema
-//         .findById(id)
-//         .then((data) => res.json(data))
-//         .catch((error) => res.json({message: error}));
-// });
 
 // get a case by document funciona descomentar ---------------------------------------
 router.get('/cases/:document', async (req, res) => {
@@ -83,9 +75,10 @@ router.get('/cases/:document', async (req, res) => {
 // envia pdf por correo que se recibe en el body --- funcional descomentar --------------------
 router.post('/pdf/:document', async (req, res) => {
   try {
-    //const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
+    const datos = `https://sadimi-eoya.onrender.com/api/cases/${req.params.document}`;
+    crearPdf(datos);
     const destinatario = req.body.destinatario;
-    enviarCorreo(destinatario);
+    setTimeout(() => enviarCorreo(destinatario), 3000);
     res.send('Archivo enviado con exito');
   } catch (error) {
     console.log(error);
@@ -93,57 +86,31 @@ router.post('/pdf/:document', async (req, res) => {
   }
 });
 
+function crearPdf(datos) {
 
-//Ejemplo de como funciona y crea el pdf
-
-// pdfshift('009bccf5b30840ad9444cef29b1826d3', { source: 'https://sadimi-eoya.onrender.com/api/cases' }).then(response => {
-//   fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
-// })
-
-
-// get a case by document 
-router.get('/createPdf/:document', async (req, res) => {
-  try {
-    const resultado = await Cases.findOne({ document: req.params.document }).select('-_id').lean();
-    res.json(resultado);
-    const document = resultado.document;
-    const datos = resultado.Array;
-
-    // const datos = resultado.Array;
-    // for (let i = 0; i < datos.length; i++) {
-    //   const nombre = datos[i].nombre;
-    //   console.log(nombre); // haz algo con el valor de "nombre"
-    // }
-
-
-    // const description = datos[0].description;
-    // const date = datos[2].date;
-    // const type = datos[3].type;
-    console.log(document,datos);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Error interno del servidor');
-  }
-});
-
+  pdfshift('c75832612c7841fabea4b6ade703bc61', { source: datos }).then(function (response) {
+    fs.writeFileSync('casosPorDocumento.com.pdf', response.data, "binary", function () { })
+  }).catch(function () { })
+}
 
 // funcion que crea el pdf y es llamada dentro del endpoint
 function pdfshift(api_key, data) {
   return new Promise((resolve, reject) => {
-    let asJson = false
-    if ('filename' in data || 'webhook' in data) {
-      asJson = true
-    }
-    axios.request({
-      method: 'post',
-      url: 'https://api.pdfshift.io/v3/convert/pdf',
-      responseType: (asJson ? 'json' : 'arraybuffer'),
-      data: data,
-      auth: { username: 'api', password: api_key }
-    }).then(resolve).catch(response => {
-      // Handle any error that might have occured
-      reject(response)
-    })
+      let asJson = false
+      if ('filename' in data || 'webhook' in data) {
+          asJson  = true
+      }
+
+      axios.request({
+          method: 'post',
+          url: 'https://api.pdfshift.io/v3/convert/pdf',
+          responseType: (asJson ? 'json' : 'arraybuffer'),
+          data: data,
+          auth: { username: 'api', password: api_key }
+      }).then(resolve).catch(response => {
+          // Handle any error that might have occured
+          reject(response)
+      })
   })
 }
 
