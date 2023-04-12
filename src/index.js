@@ -11,7 +11,11 @@ const personRoutes = require("./routes/person");
 const employeeRoutes = require("./routes/employee");
 
 
-app.use(cors()); // Permite todas las conexiones
+app.use(cors(
+    {
+        origin: 'https://sadimi-suj6.onrender.com'    
+    }
+)); // Permite todas las conexiones
 
 //Settings
 app.set('port', process.env.PORT || 3000);
