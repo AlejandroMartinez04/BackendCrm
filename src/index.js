@@ -10,12 +10,12 @@ const casesRoutes = require("./routes/cases");
 const personRoutes = require("./routes/person");
 const employeeRoutes = require("./routes/employee");
 
-const whiteList = ['https://sadimi-suj6.onrender.com','http://localhost:3000'];
+// const whiteList = ['https://sadimi-suj6.onrender.com','http://localhost:3000'];
 
 // app.use(cors({origin: whiteList }));
 
 var corsOptions = {
-    origin: 'https://sadimi-suj6.onrender.com',
+    origin: 'http://10.223.152.132',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
